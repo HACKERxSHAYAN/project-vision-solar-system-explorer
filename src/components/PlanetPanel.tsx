@@ -48,11 +48,12 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: 60, scale: 0.95 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="planet-panel absolute bottom-8 right-8 bg-slate-900/70 backdrop-blur-md border border-slate-700/50 shadow-2xl rounded-2xl p-6 flex flex-col h-full"
-          style={{ '--accent': accentColor, maxHeight: '80vh' } as React.CSSProperties}
+          /* CRITICAL FIX: Changed max-h-[80vh] to h-[80vh] to force the card open */
+          className="planet-panel absolute bottom-12 right-8 bg-slate-900/70 backdrop-blur-md border border-slate-700/50 shadow-2xl rounded-2xl p-6 flex flex-col w-96 h-[80vh]"
+          style={{ '--accent': accentColor } as React.CSSProperties}
         >
           {/* Header */}
-          <div className="panel-header" style={{ borderColor: `${accentColor}40` }}>
+          <div className="panel-header shrink-0" style={{ borderColor: `${accentColor}40` }}>
             <div className="panel-header-content">
               <div className="planet-icon" style={{ background: `${accentColor}20`, borderColor: `${accentColor}40` }}>
                 <span>{icon}</span>
@@ -81,10 +82,10 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
           </div>
 
           {/* Divider with glow */}
-          <div className="panel-divider" style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }} />
+          <div className="panel-divider shrink-0" style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }} />
 
           {/* Tabs */}
-          <div className="panel-tabs">
+          <div className="panel-tabs shrink-0">
             <button
               className={`panel-tab ${activeTab === 'story' ? 'active' : ''}`}
               style={activeTab === 'story' ? { color: accentColor, borderColor: accentColor } : {}}
@@ -102,9 +103,8 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
           </div>
 
           {/* Scrollable content area */}
-          <div className="flex-1 overflow-y-auto pb-4 pr-2">
-            {/* Content */}
-            <div className="panel-content" style={{ maxHeight: 'none', overflowY: 'visible', pointerEvents: 'auto' }}>
+          <div className="flex-1 min-h-0 overflow-y-auto pr-2 pb-4 mt-2 scrollbar-hide">
+            <div className="panel-content">
               <AnimatePresence mode="wait">
                 {activeTab === 'story' ? (
                   <motion.div
@@ -114,8 +114,8 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <p className="panel-story">{planet.story}</p>
-                    <div className="fun-fact-box" style={{ borderColor: `${accentColor}40`, background: `${accentColor}08` }}>
+                    <p className="panel-story leading-relaxed text-slate-300">{planet.story}</p>
+                    <div className="fun-fact-box mt-4" style={{ borderColor: `${accentColor}40`, background: `${accentColor}08` }}>
                       <div className="fun-fact-label" style={{ color: accentColor }}>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '6px' }}>
                           <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z" />
@@ -133,7 +133,7 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="facts-grid">
+                    <div className="grid grid-cols-2 gap-4">
                       {[
                         { label: 'Diameter', value: planet.facts.diameter, icon: '⊙' },
                         { label: 'Distance from Sun', value: planet.facts.distanceFromSun, icon: '↔' },
@@ -142,10 +142,10 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
                         { label: 'Temperature', value: planet.facts.temperature, icon: '◈' },
                         { label: 'Known Moons', value: planet.facts.moons, icon: '◯' },
                       ].map((fact) => (
-                        <div key={fact.label} className="fact-item" style={{ borderColor: `${accentColor}20` }}>
-                          <div className="fact-icon" style={{ color: accentColor }}>{fact.icon}</div>
-                          <div className="fact-label">{fact.label}</div>
-                          <div className="fact-value">{fact.value}</div>
+                        <div key={fact.label} className="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 hover:bg-slate-700/40 transition-colors" style={{ borderColor: `${accentColor}20` }}>
+                          <div className="fact-icon text-xl mb-2" style={{ color: accentColor }}>{fact.icon}</div>
+                          <div className="fact-label text-xs text-slate-400 uppercase tracking-widest mb-1">{fact.label}</div>
+                          <div className="fact-value text-lg font-bold text-white tracking-tight">{fact.value}</div>
                         </div>
                       ))}
                     </div>
@@ -156,7 +156,7 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
           </div>
 
           {/* Orbital visualization mini widget */}
-          <div className="panel-orbit-viz mt-auto shrink-0" style={{ borderColor: `${accentColor}15` }}>
+          <div className="shrink-0 mt-4 relative z-10 bg-slate-900/95 pt-4 border-t border-slate-700/50 panel-orbit-viz -mx-6 px-6" style={{ borderColor: `${accentColor}15` }}>
             <div className="orb-viz-label" style={{ color: accentColor }}>ORBITAL TRAJECTORY</div>
             <div className="orb-viz-container">
               <motion.div
@@ -171,7 +171,7 @@ function PlanetPanel({ planet, onClose }: PlanetPanelProps) {
           </div>
 
           {/* Bottom indicator */}
-          <div className="panel-footer">
+          <div className="shrink-0 panel-footer -mx-6 px-6 pb-0 pt-2">
             <div className="signal-dot" style={{ background: accentColor }} />
             <span className="signal-text">LIVE TELEMETRY</span>
             <div className="signal-bar" style={{ background: `${accentColor}60` }}>
