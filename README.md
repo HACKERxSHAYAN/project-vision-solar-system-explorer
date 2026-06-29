@@ -1,5 +1,5 @@
 # 🛰️ Solar System Explorer v2.0
-### Heliocentric Visualization Platform & Aerospace Telemetry Interface
+### Helio-centric Visualization Platform & Aerospace Telemetry Interface
 
 An immersive, real-time 3D simulation engine built using React, Three.js (React Three Fiber), and GSAP. This platform provides a cinematic, high-fidelity visualization of heliocentric orbits, planetary telemetry, and celestial dynamics with a pixel-perfect premium aerospace HUD.
 
@@ -8,8 +8,8 @@ An immersive, real-time 3D simulation engine built using React, Three.js (React 
 ## 🌌 Key Architectural Features
 
 ### 1. Continuous Dynamic Tracking Matrix (`Scene.tsx` & `Planet.tsx`):
-* **Frame-Locked Tethering:** Eliminates orbital drift using a high-frequency rendering loop. The tracking camera captures the planetary mesh world coordinates (`getWorldPosition`) every individual frame inside a unified `useFrame` hook.
-* **Dynamic Orbit Anchor:** Overrides traditional static target points by binding `controls.target` to moving vectors in real-time, correcting camera mouse orbit mechanics natively while bodies are in high-velocity transit.
+* **Frame-Locked Tethering:** Eliminates orbital drift using a high-frequency rendering loop. The tracking camera captures the planetary mesh world coordinates (`getWorldPosition`) every individual frame inside a unified `useFrame` hooks.
+* **Dynamic Orbit Anchor:** Overrides traditional static target points by binding `controls.target` to moving vectors in real-time, correcting camera mouse orbit mechanics natively while bodies are in high-velocity transition.
 
 ### 2. Synchronized Kinematic Flight Vectors:
 * **Dual-Animation Synchronization:** Powered by concurrent GSAP timelines running identical easing arrays over 2.4-second intervals.
@@ -21,7 +21,7 @@ An immersive, real-time 3D simulation engine built using React, Three.js (React 
 
 ---
 
-## 📂 Codebase Directory Mapping
+## 📂 Whole Codebase Directory Mapping:
 
 ```text
 src/
